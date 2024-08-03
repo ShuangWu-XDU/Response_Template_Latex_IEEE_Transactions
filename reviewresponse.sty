@@ -1,0 +1,127 @@
+\ProvidesPackage{reviewresponse}[2021/11/10 Review Response v1.2]
+% Author: Karl-Ludwig Besser
+% Email: k.besser@tu-bs.de
+
+% Updated by Liwenhan Xie (xieliwenhan@yahoo.com)
+% Summary of changes: section font configuration and the abbreviations
+\RequirePackage{kvoptions}
+\RequirePackage[breakable,skins]{tcolorbox}
+\RequirePackage{xcolor}
+
+%%% Package Options %%%
+\DeclareStringOption{editor}
+\DeclareStringOption{journal}
+\DeclareStringOption{manuscript}
+\ProcessKeyvalOptions*
+%%%
+
+%%% Variables
+\let\editorname\reviewresponse@editor
+\let\journal\reviewresponse@journal
+\let\manuscript\reviewresponse@manuscript
+\newcommand*{\thetitle}{\@title}
+\newcommand*{\theauthor}{\@author}
+\newcommand*{\thedate}{\@date}
+
+%%% Colors
+\definecolor{colorcommentfg}{HTML}{336633}
+\definecolor{colorcommentbg}{HTML}{ededed}
+\definecolor{colorcommentframe}{HTML}{336633}
+%\definecolor{colordark}{RGB}{0,63,87}
+%\definecolor{colormedium}{RGB}{0,112,155}
+%\definecolor{colorlight}{RGB}{102,180,211}
+%\colorlet{colorcommentbg}{colorlight!20}
+
+\definecolor{colorchangebg}{HTML}{00AEEF}%e5f9de 424242
+\definecolor{colorchangetext}{HTML}{00AEEF}
+\definecolor{colorprvbg}{HTML}{949698}%e5f9de
+\definecolor{colorprvtext}{HTML}{424242}
+\colorlet{colorchangeframe}{black!20}
+%%%
+
+
+%%% General Settings
+\setlength{\parindent}{12pt}
+\setlength{\parskip}{.25em}
+\setlength{\headheight}{15pt}
+ \addtolength{\topmargin}{-3pt}
+\renewcommand{\baselinestretch}{1.0}   
+\textheight 235mm        
+
+%%%
+
+%%% Counters
+\newcounter{reviewer@counter}
+\setcounter{reviewer@counter}{0}
+\newcounter{reviewcomment@counter}[reviewer@counter]
+\setcounter{reviewcomment@counter}{0}
+%%%
+
+%%% Commands
+\renewcommand*{\maketitle}{%
+	\begin{titlepage}
+		\begin{center}
+			\vspace*{1cm}
+			\large{Responses to Reviewers' Comments for Manuscript \reviewresponse@manuscript}\\
+
+			\vspace{1cm}
+			\textbf{\LARGE{\@title}}\\
+			\vspace{1cm}
+			\large{Addressed Comments for Publication to}
+			
+			\Large{\reviewresponse@journal}
+			
+			\large{by}
+			
+			{\large{\@author}}
+		\end{center}
+	\end{titlepage}
+}
+
+\newcommand{\editor}{
+	\clearpage
+	\@ifundefined{pdfbookmark}{}{%
+		\pdfbookmark[1]{Reponse to the Associate Editor}{hyperref@editor}%
+	}%
+	\section*{\textbf{Response to the Associate Editor}}
+}
+
+\newcommand{\reviewer}{
+	\clearpage
+	\refstepcounter{reviewer@counter}%
+	\@ifundefined{pdfbookmark}{}{%
+		\pdfbookmark[1]{Reviewer \arabic{reviewer@counter}}{hyperref@reviewer\arabic{reviewer@counter}}%
+	}%
+	\section*{\textbf{\bfseries{Response to Reviewer \arabic{reviewer@counter}}}}
+}
+%%%
+
+%%% Blocks %%%
+\newenvironment{generalcomment}{%
+% \refstepcounter{reviewcomment@counter}
+	\begin{tcolorbox}[adjusted title={Summary Comment}, fonttitle={\bfseries}, enhanced jigsaw, colbacktitle={colorcommentframe},arc=0pt,boxrule=0em,opacityframe=0,colback={colorcommentbg}]
+}{\end{tcolorbox}}
+
+\newenvironment{revcomment}[1][]{\refstepcounter{reviewcomment@counter}
+	\begin{tcolorbox}[adjusted title={Comment \arabic{reviewer@counter}.\arabic{reviewcomment@counter}}, fonttitle={\bfseries}, enhanced jigsaw, colbacktitle={colorcommentframe},arc=0pt,opacityframe=0,boxrule=0em,colback={colorcommentbg},#1]
+}{\end{tcolorbox}}
+
+\newenvironment{revresponse}[1][{}]{%
+	\noindent\textbf{Response \arabic{reviewer@counter}.\arabic{reviewcomment@counter}:} #1\par
+}{\vspace{1em}}
+
+\newenvironment{revmeta}[1][{}]{%
+	\textbf{Response Summary:} #1\par
+}{\vspace{1em}}
+
+\newenvironment{changes}{
+\begin{tcolorbox}[use color stack, breakable,left skip=0em,enhanced jigsaw, colframe={colorchangebg}, before upper={\parindent 12pt},boxrule=0.0em, leftrule=.5em, opacityback=0, opacityframe=1, arc=1pt]\color{colorchangetext}
+}
+{\end{tcolorbox}}
+
+\newenvironment{previous}{
+\begin{tcolorbox}[use color stack, breakable,left skip=0em,enhanced jigsaw, colframe={colorprvbg}, before upper={\parindent 12pt},boxrule=0.0em, leftrule=0.5em, opacityback=0, opacityframe=1, arc=1pt]\color{colorprvtext}
+}
+{\end{tcolorbox}}
+
+\newcommand{\printpartbibliography}[1]{\begin{refsegment}\nocite{#1}\printbibliography[heading=none,segment=\therefsegment]\end{refsegment}}

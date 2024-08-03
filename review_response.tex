@@ -1,0 +1,46 @@
+\documentclass[12pt,american]{article}
+\usepackage[T1]{fontenc}
+\usepackage{fourier}
+\usepackage[hidelinks]{hyperref}
+\usepackage{babel}
+\usepackage[babel]{microtype}
+\usepackage[babel]{csquotes}
+\usepackage[journal={IFFF Transactions on Global Sports and Performance Analysis},
+			manuscript={TGSPA-2424-08248},
+			]{reviewresponse}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage[a4paper,total={160mm,245mm},left=25mm,top=25mm]{geometry}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{.5pt}
+\usepackage[shortlabels]{enumitem}
+\newlist{detail}{itemize}{3}
+\setlist[detail, 1]{label=\textbullet,leftmargin=21pt,nosep}
+\usepackage[backend=biber,style=ieee,dashed=false,url=false,isbn=false,defernumbers=true,refsection=section]{biblatex}
+\usepackage{amsmath,amsfonts}
+\bibliography{literature.bib}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{bigstrut}
+\usepackage{multicol}
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\title{The Dynamic Relationship Between Argentine Star Kobe Flyant and Portuguese Icon LeBrun Jomes: A Study of Rivalry and Alliance on the Football Field}
+\author{Kobe Flyant and LeBrun Jomes}
+\begin{document}
+\maketitle
+
+% Cover Letter
+\input{cover_letter.tex}
+\setcounter{page}{0}
+\pagestyle{fancy}
+\fancyfoot[R]{\thepage\ / \pageref{LastPage}}
+\fancyfoot[L]{Response Letter for TGSPA-2424-08248\fancyfoot}
+\fancyfoot[C]{\ }
+\input{Reviewers/Meta.tex}
+\input{Reviewers/R1.tex}
+\input{Reviewers/R2.tex}
+\input{Reviewers/R3.tex}
+
+\end{document}
